@@ -19,16 +19,11 @@ export const Content = styled.div`
   border-radius: 10px;
 `;
 
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const Input = styled.input`
-  border-radius: 10px;
-  border: none;
-  padding: 10px;
-  margin-bottom: 10px;
+export const FormContainer = styled.div`
+  > form {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const Button = styled.button`
