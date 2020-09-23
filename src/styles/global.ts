@@ -4,11 +4,12 @@ const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
+    outline: none;
   }
 
   body {
     background: #121212;
-    color: #F5F5F5;
+    color: white;
     height: 100vh;
     width: 100vw;
     font-family: 'Epilogue', sans-serif;
@@ -21,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
   p {
     font-weight: 400;
   }
+
 `;
 
 export default GlobalStyle;
