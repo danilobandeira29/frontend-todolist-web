@@ -53,7 +53,7 @@ Frontend web do challenge-todolist. Nessa aplicação, o usuário consegue criar
 ```
 
 ## 🔮 Futuras implementações
-- [ ] Dark theme
+- [ ] Light theme
 - [ ] Testes
 
 **Developed by/Desenvolvido por**👻
