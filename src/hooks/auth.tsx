@@ -20,6 +20,7 @@ interface ISignInCredentials {
 interface IAuthProviderState {
   user: IUser;
   signIn(data: ISignInCredentials): Promise<void>;
+  signOut(): void;
 }
 
 const AuthContext = createContext<IAuthProviderState>({} as IAuthProviderState);
@@ -53,8 +54,14 @@ const AuthProvider: React.FC = ({ children }) => {
     [],
   );
 
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@TodoList:token');
+    localStorage.removeItem('@TodoList:user');
+    setData({} as IData);
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
