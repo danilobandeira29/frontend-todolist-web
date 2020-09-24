@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import Input from '../../components/Input';
 import { useAuth } from '../../hooks/auth';
@@ -31,6 +32,7 @@ const SignIn: React.FC = () => {
             <Button type="submit">Sign In</Button>
           </Form>
         </FormContainer>
+        <Link to="/signup">Sign Up</Link>
       </Content>
     </Container>
   );

@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import Input from '../../components/Input';
 import api from '../../services/api';
@@ -12,10 +13,7 @@ interface SignUpForm {
 
 const SignUp: React.FC = () => {
   const handleSignUp = useCallback(async (data: SignUpForm) => {
-    console.log(data);
     const response = await api.post('/users', data);
-
-    console.log(response.data);
   }, []);
 
   return (
@@ -30,6 +28,7 @@ const SignUp: React.FC = () => {
             <Button type="submit">Sign Up</Button>
           </Form>
         </FormContainer>
+        <Link to="/">Sign In</Link>
       </Content>
     </Container>
   );
