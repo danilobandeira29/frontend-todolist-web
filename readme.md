@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./2tdelivery.png" alt="2t logo"/>
+</p>
+
 # Sumário
 - [Sobre](#-Sobre)
 - [Desafios](#-Desafios)
