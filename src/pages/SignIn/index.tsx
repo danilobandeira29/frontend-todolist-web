@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { Form } from '@unform/web';
 import Input from '../../components/Input';
 import { useAuth } from '../../hooks/auth';
-import api from '../../services/api';
 import { Container, Title, Content, FormContainer, Button } from './styles';
 
 interface ISignInForm {
@@ -11,14 +10,11 @@ interface ISignInForm {
 }
 
 const SignIn: React.FC = () => {
-  const { name, signIn } = useAuth();
+  const { signIn } = useAuth();
 
   const handleSignIn = useCallback(
     async (data: ISignInForm): Promise<void> => {
-      const response = await api.post('/users/sessions', data);
-      signIn();
-
-      console.log(response.data);
+      await signIn({ email: data.email, password: data.password });
     },
     [signIn],
   );
