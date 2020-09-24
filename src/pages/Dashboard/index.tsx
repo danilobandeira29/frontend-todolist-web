@@ -15,6 +15,10 @@ const Dashboard: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
 
   const handleCreateTodo = useCallback(async () => {
+    if (inputValue.length === 0) {
+      alert('Cannot create a todo without a message');
+      return;
+    }
     const response = await api.post('/todos', { todo: inputValue });
 
     setInputValue('');

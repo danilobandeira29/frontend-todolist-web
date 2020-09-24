@@ -24,6 +24,10 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
   }
 
+  button {
+    cursor: pointer;
+  }
+
 `;
 
 export default GlobalStyle;
