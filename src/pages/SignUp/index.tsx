@@ -16,8 +16,12 @@ const SignUp: React.FC = () => {
 
   const handleSignUp = useCallback(
     async (data: SignUpForm) => {
-      await api.post('/users', data);
-      history.push('/');
+      try {
+        await api.post('/users', data);
+        history.push('/');
+      } catch (err) {
+        alert('Internal server error!');
+      }
     },
     [history],
   );

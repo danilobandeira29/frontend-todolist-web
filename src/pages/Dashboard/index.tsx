@@ -19,18 +19,27 @@ const Dashboard: React.FC = () => {
       alert('Cannot create a todo without a message');
       return;
     }
-    const response = await api.post('/todos', { todo: inputValue });
 
-    setInputValue('');
-    setTodos([...todos, response.data]);
+    try {
+      const response = await api.post('/todos', { todo: inputValue });
+
+      setInputValue('');
+      setTodos([...todos, response.data]);
+    } catch (err) {
+      alert('Internal server error!');
+    }
   }, [todos, inputValue]);
 
   const handleRemoveTodo = useCallback(
     async (id: string) => {
-      await api.delete(`/todos/${id}`);
+      try {
+        await api.delete(`/todos/${id}`);
 
-      const filterTodos = todos.filter(todo => todo.id !== id);
-      setTodos(filterTodos);
+        const filterTodos = todos.filter(todo => todo.id !== id);
+        setTodos(filterTodos);
+      } catch (err) {
+        alert('Internal server error!');
+      }
     },
     [todos],
   );

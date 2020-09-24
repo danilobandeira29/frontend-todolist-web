@@ -15,7 +15,11 @@ const SignIn: React.FC = () => {
 
   const handleSignIn = useCallback(
     async (data: ISignInForm): Promise<void> => {
-      await signIn({ email: data.email, password: data.password });
+      try {
+        await signIn({ email: data.email, password: data.password });
+      } catch (err) {
+        alert('Internal server error!');
+      }
     },
     [signIn],
   );
