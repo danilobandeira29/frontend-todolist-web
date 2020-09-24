@@ -31,6 +31,7 @@ const AuthProvider: React.FC = ({ children }) => {
     const token = localStorage.getItem('@TodoList:token');
 
     if (token && user) {
+      api.defaults.headers.authorization = `Bearer ${token}`;
       return { token, user: JSON.parse(user) };
     }
 
@@ -49,6 +50,7 @@ const AuthProvider: React.FC = ({ children }) => {
       localStorage.setItem('@TodoList:token', token);
       localStorage.setItem('@TodoList:user', JSON.stringify(user));
 
+      api.defaults.headers.authorization = `Bearer ${token}`;
       setData({ token, user });
     },
     [],
