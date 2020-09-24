@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
 import { HeaderContainer, Header, Container, HeaderContent } from './styles';
@@ -9,8 +9,7 @@ interface ITodos {
 }
 
 const Dashboard: React.FC = () => {
-  const { signOut } = useAuth();
-  const inputRef = useRef<any>(null);
+  const { signOut, user } = useAuth();
 
   const [todos, setTodos] = useState<ITodos[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -18,7 +17,7 @@ const Dashboard: React.FC = () => {
   const handleCreateTodo = useCallback(async () => {
     const response = await api.post('/todos', { todo: inputValue });
 
-    inputRef.current.value = '';
+    setInputValue('');
     setTodos([...todos, response.data]);
   }, [todos, inputValue]);
 
@@ -47,8 +46,8 @@ const Dashboard: React.FC = () => {
       <HeaderContainer>
         <Header>
           <div>
-            <p>Bem vindo(a),</p>
-            <strong>Danilo Bandeira</strong>
+            <p>Welcome,</p>
+            <strong>{user.name}</strong>
           </div>
 
           <button type="button" onClick={() => signOut()}>
@@ -61,7 +60,7 @@ const Dashboard: React.FC = () => {
         <h1>Create a new todo</h1>
         <HeaderContent>
           <input
-            ref={inputRef}
+            value={inputValue}
             placeholder="New todo"
             type="text"
             onChange={e => setInputValue(e.target.value)}
@@ -72,7 +71,7 @@ const Dashboard: React.FC = () => {
         </HeaderContent>
 
         {todos.length === 0 ? (
-          <p>Sem todos</p>
+          <p>No todos</p>
         ) : (
           <ul>
             {todos.map(todo => (
