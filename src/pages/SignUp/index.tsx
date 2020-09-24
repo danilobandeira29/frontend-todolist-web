@@ -5,7 +5,7 @@ import Input from '../../components/Input';
 import api from '../../services/api';
 import { Container, Title, Content, FormContainer, Button } from './styles';
 
-interface SignUpForm {
+interface ISignUpForm {
   name: string;
   email: string;
   password: string;
@@ -15,7 +15,7 @@ const SignUp: React.FC = () => {
   const history = useHistory();
 
   const handleSignUp = useCallback(
-    async (data: SignUpForm) => {
+    async (data: ISignUpForm) => {
       try {
         await api.post('/users', data);
         history.push('/');
