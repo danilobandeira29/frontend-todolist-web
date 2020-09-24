@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { Form } from '@unform/web';
 import Input from '../../components/Input';
+import api from '../../services/api';
 import { Container, Title, Content, FormContainer, Button } from './styles';
 
 interface ISignInForm {
@@ -9,8 +10,10 @@ interface ISignInForm {
 }
 
 const SignIn: React.FC = () => {
-  const handleSignIn = useCallback((data: ISignInForm): void => {
-    console.log(data);
+  const handleSignIn = useCallback(async (data: ISignInForm): Promise<void> => {
+    const response = await api.post('/users/sessions', data);
+
+    console.log(response.data);
   }, []);
 
   return (
