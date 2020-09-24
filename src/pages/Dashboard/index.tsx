@@ -1,9 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../../hooks/auth';
+import api from '../../services/api';
 import { HeaderContainer, Header, Container, HeaderContent } from './styles';
+
+interface ITodos {
+  id: string;
+  name: string;
+}
 
 const Dashboard: React.FC = () => {
   const { signOut } = useAuth();
+
+  const [todos, setTodos] = useState<ITodos[]>([]);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleCreateTodo = useCallback(async () => {
+    const response = await api.post('/todos', inputValue);
+
+    setTodos([...todos, response.data]);
+  }, [todos, inputValue]);
+
+  useEffect(() => {
+    async function loadTodos() {
+      const response = await api.get('/todos');
+
+      setTodos(response.data);
+    }
+
+    loadTodos();
+  }, []);
 
   return (
     <>
@@ -23,23 +48,23 @@ const Dashboard: React.FC = () => {
       <Container>
         <h1>Create a new todo</h1>
         <HeaderContent>
-          <input placeholder="New todo" type="text" />
-          <button type="button">Create</button>
+          <input
+            placeholder="New todo"
+            type="text"
+            onChange={e => setInputValue(e.target.value)}
+          />
+          <button type="button" onClick={handleCreateTodo}>
+            Create
+          </button>
         </HeaderContent>
 
         <ul>
-          <li>
-            Todo1
-            <button type="button">Remover</button>
-          </li>
-          <li>
-            Todo2
-            <button type="button">Remover</button>
-          </li>
-          <li>
-            Todo3
-            <button type="button">Remover</button>
-          </li>
+          {todos.map(todo => (
+            <li key={todo.id}>
+              {todo.name}
+              <button type="button">Remover</button>
+            </li>
+          ))}
         </ul>
       </Container>
     </>
