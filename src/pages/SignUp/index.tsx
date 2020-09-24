@@ -19,7 +19,7 @@ const SignUp: React.FC = () => {
       try {
         await api.post('/users', data);
         history.push('/');
-      } catch (err) {
+      } catch {
         alert('Internal server error!');
       }
     },

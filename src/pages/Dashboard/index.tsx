@@ -25,7 +25,7 @@ const Dashboard: React.FC = () => {
 
       setInputValue('');
       setTodos([...todos, response.data]);
-    } catch (err) {
+    } catch {
       alert('Internal server error!');
     }
   }, [todos, inputValue]);
@@ -37,7 +37,7 @@ const Dashboard: React.FC = () => {
 
         const filterTodos = todos.filter(todo => todo.id !== id);
         setTodos(filterTodos);
-      } catch (err) {
+      } catch {
         alert('Internal server error!');
       }
     },
@@ -46,9 +46,13 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     async function loadTodos() {
-      const response = await api.get('/todos');
+      try {
+        const response = await api.get('/todos');
 
-      setTodos(response.data);
+        setTodos(response.data);
+      } catch {
+        alert('Internal server error!');
+      }
     }
 
     loadTodos();

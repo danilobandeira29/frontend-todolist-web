@@ -17,7 +17,7 @@ const SignIn: React.FC = () => {
     async (data: ISignInForm): Promise<void> => {
       try {
         await signIn({ email: data.email, password: data.password });
-      } catch (err) {
+      } catch {
         alert('Internal server error!');
       }
     },

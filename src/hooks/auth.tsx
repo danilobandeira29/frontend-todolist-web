@@ -27,8 +27,8 @@ const AuthContext = createContext<IAuthProviderState>({} as IAuthProviderState);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<IData>(() => {
-    const user = localStorage.getItem('@TodoList:user');
-    const token = localStorage.getItem('@TodoList:token');
+    const user = localStorage.getItem('TodoList:user');
+    const token = localStorage.getItem('TodoList:token');
 
     if (token && user) {
       api.defaults.headers.authorization = `Bearer ${token}`;
@@ -47,8 +47,8 @@ const AuthProvider: React.FC = ({ children }) => {
 
       const { token, user } = response.data;
 
-      localStorage.setItem('@TodoList:token', token);
-      localStorage.setItem('@TodoList:user', JSON.stringify(user));
+      localStorage.setItem('TodoList:token', token);
+      localStorage.setItem('TodoList:user', JSON.stringify(user));
 
       api.defaults.headers.authorization = `Bearer ${token}`;
       setData({ token, user });
@@ -57,8 +57,8 @@ const AuthProvider: React.FC = ({ children }) => {
   );
 
   const signOut = useCallback(() => {
-    localStorage.removeItem('@TodoList:token');
-    localStorage.removeItem('@TodoList:user');
+    localStorage.removeItem('TodoList:token');
+    localStorage.removeItem('TodoList:user');
     setData({} as IData);
   }, []);
 
